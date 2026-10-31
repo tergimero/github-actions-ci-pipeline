@@ -37,3 +37,14 @@ jobs:
       - name: Run Automated Tests
         run: |
           python -m pytest -v
+
+
+      - name: Verify Secret Configuration
+        env:
+          DEMO_API_KEY: ${{ secrets.DEMO_API_KEY }}
+        run: |
+          if [ -z "$DEMO_API_KEY" ]; then
+            echo "Secret is missing"
+            exit 1
+          fi
+          echo "Secret configured successfully"
